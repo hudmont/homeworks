@@ -116,7 +116,12 @@ void swapCol(Eliminator * elim, int colWhich, int colWithWhich)
 }
 
 #ifdef VECTORIZED
-typedef double v2d __attribute__ ((vector_size(16)));
+typedef double vd __attribute__ ((__aligned__(VLEN*8)));
+
+typedef union {
+	double ptr[VLEN];
+	vd dat;
+} FOUR;
 #endif
 
 void addRow(Eliminator * elim, int rowToWhich, int rowWhich,
@@ -136,34 +141,28 @@ void addRow(Eliminator * elim, int rowToWhich, int rowWhich,
 void vectorizedAddRow(Eliminator * elim, int rowToWhich, int rowWhich,
 		      double mulFactor)
 {
+#ifdef DEBUG
+	puts("Vajon az addrow a hibás?");
+#endif
 	int last = elim->left->cols - 1;
-	int bound = last / 2;
-	//#pragma omp parallel for
-	for (int k = 0; k < bound; k ++) {
-	  (*(v2d *) (get(*elim->left, rowToWhich, k*2))) +=
-	    (*(v2d *) (get(*elim->left, rowWhich,
-			   k*2))) * mulFactor;
-	}
-	if (last % 2) {
-		*get(*elim->left, rowToWhich, last) +=
-		    *get(*elim->left, rowWhich,
-			 last) * mulFactor;
+	int bound = last / VLEN;
+	int rem=elim->left->cols % VLEN;
+#define doOneRow(mat)							\
+	for (int k = 0; k < bound; k ++) {				\
+	  (*(vd *) (get(mat, rowToWhich, k*VLEN))) +=			\
+	    (*(vd *) (get(mat, rowWhich,   k*VLEN))) * mulFactor;	\
+	}								\
+	for(int k=0; k < rem; k++){					\
+	  *get(mat, rowToWhich, last-k) +=				\
+	    *get(mat, rowWhich,   last-k) * mulFactor;			\
 	}
 	
-	//last = elim->right->cols - 1;
-	//bound = last / 2;
-	
-	//#pragma omp parallel for
-	for (int k = 0; k < bound; k++) {
-	  (*(v2d *) (get(*elim->right, rowToWhich, k*2))) +=
-	    (*(v2d *) (get(*elim->right, rowWhich,
-			  k*2))) * mulFactor;
-	}
-	if (last % 2) {
-		*get(*elim->right, rowToWhich, last) +=
-		    *get(*elim->right, rowWhich,
-			 last) * mulFactor;
-	}
+	doOneRow(*elim->left);
+	doOneRow(*elim->right);
+#undef doOneRow
+#ifdef DEBUG
+	puts(" Nem.\n");
+#endif
 }
 #endif
 
@@ -177,36 +176,39 @@ void mulRow(Eliminator * elim, int rowWhich, double byHowMany)
 	}
 }
 
+
+
 #ifdef VECTORIZED
 void vectorizedMulRow(Eliminator * elim, int rowWhich,
 		      double byHowMany)
 {
 	int last = elim->left->cols - 1;
-	int bound = elim->left->cols / 2;
-	printf("sor: %d, meddig: %d\n",rowWhich, end);
-	//#pragma omp parallel for
-	for (int k = 0; k < bound; k ++) {
-	printf("%d %f %f\n", k, *get(*elim->left,rowWhich,k),*get(*elim->left,rowWhich,k+1));
+	int bound = elim->left->cols / VLEN;
+	int rem = elim->left->cols % VLEN;
+	
+	#ifdef DEBUG
+	printf("sor: %d, meddig: %d, maradék: %d\n",rowWhich, last, rem);
+	#endif
 
-	  (*(v2d *) (get(*elim->left, rowWhich, k*2))) *= byHowMany;
-		//puts("megvan\n");
-	}
-	printf("utsó elem\n");
-	if (last % 2) {
-		*get(*elim->left, rowWhich, last) *=
-		    byHowMany;
-	}
-	printf("Jobb oldal indul\n");
-	//last = elim->right->cols - 1;
-	//bound = last / 2;
-	//#pragma omp parallel for
-	for (int k = 0; k < bound; k ++) {
-	  (*(v2d *) (get(*elim->right, rowWhich, k*2))) *= byHowMany;
-	}
-	if (last % 2) {
-		*get(*elim->right, rowWhich, last) *=
-		    byHowMany;
-	}
+
+	//inline void doOneRow(Matrix mat)
+#define doOneRow(mat)							\
+	{								\
+	  for (int k = 0; k < bound; k++) {				\
+	    *(vd *)(get(mat, rowWhich, k*VLEN)) *=byHowMany;	\
+	  }								\
+									\
+	  for (int k=0; k<rem; k++) {					\
+	    *get(mat, rowWhich, last-k) *=				\
+	      byHowMany;						\
+	  }								\
+	}								
+
+	doOneRow((*(elim->left)));
+	doOneRow((*(elim->right)));
+#undef doOneRow
+
+
 }
 #endif
 void Eliminate(Matrix mat, Matrix * right)
@@ -222,7 +224,6 @@ void Eliminate(Matrix mat, Matrix * right)
 	memcpy(left.arr.data, mat.arr.data,
 	       mat.arr.filled_to * sizeof(double));
 #endif
-	printf("Legalább a fvhívásig eljutottunk lol");
 
 	elim.left = &left;
 
@@ -272,10 +273,13 @@ void Eliminate(Matrix mat, Matrix * right)
 #else
 			mulRow(&elim, k, 1.0 / pivot);
 #endif
-			//printf("Anjád: %d\n",i);
-
+#ifdef DEBUG
+			printf("Anjád: %d\n",i);
+#endif
 		}
-
+#ifdef DEBUG
+		puts("b4 backelim\n");
+#endif
 #ifdef SLOW
 		pivotcoords = findMax(*elim.left, i, i);
 
@@ -283,10 +287,14 @@ void Eliminate(Matrix mat, Matrix * right)
 		pivotcoords.x = findMaxInCol(*elim.left, i, i);
 		pivotcoords.y = i;
 #endif
-
+#ifdef DEBUG
+		puts("b4 backelim\n");
+#endif
 		pivot =
 		    *get(*elim.left, pivotcoords.x, pivotcoords.y);
-
+#ifdef DEBUG
+		puts("b4 backelim\n");
+#endif
 		if (fabs(pivot) < EPSILON) {
 
 			matDel(elim.right);
@@ -294,9 +302,6 @@ void Eliminate(Matrix mat, Matrix * right)
 			matDel(elim.left);
 #endif
 			(*right) = (*elim.right);
-
-			//printf("BAZDMEGANYÁD\n");
-
 			return;
 		}
 
@@ -305,7 +310,6 @@ void Eliminate(Matrix mat, Matrix * right)
 #ifdef SLOW
 		swapCol(&elim, i, pivotcoords.y);
 #endif
-
 #ifdef THREADED
 #pragma omp parallel for
 #endif
@@ -348,7 +352,7 @@ void Eliminate(Matrix mat, Matrix * right)
 				 1.0 / *get(*elim.left, i, i));
 #endif
 
-		// nomrálja a felsőbb sorokat
+		// normálja a felsőbb sorokat
 #ifdef THREADED
 #pragma omp parallel for
 #endif

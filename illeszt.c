@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
 
 				*get(design, i, powindex) *= (pow(*get(data, i, varindex), pows.powers[powindex][varindex])); ;
 			}
-			*get(design, i, powindex) /*= SZIGMA(i)*/;
+			//*get(design, i, powindex) /*= SZIGMA(i)*/;
             /*if(fabs(*get(design, i, powindex)) > max) {
                 max = fabs(*get(design, i, powindex));
             }*/

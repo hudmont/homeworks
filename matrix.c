@@ -26,10 +26,10 @@ inline void matDel(Matrix * mat)
 
 inline double *get(Matrix mat, int row, int col)
 {
-	/*if((mat.cols <= col) || (mat.rows <= row)) {
+/*	if((mat.cols <= col) || (mat.rows <= row)) {
 	   printf("Érvénytelen indexek: xmax: %d, x: %d, ymax: %d, y: %d \n", mat.cols, col, mat.rows, row);
 	   return NULL;
-	   } */
+	   }*/
 	return mat.arr.data + (mat.cols * row) + col;
 }
 

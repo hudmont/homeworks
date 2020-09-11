@@ -1,5 +1,7 @@
 #include <stdlib.h>
+#include <time.h>
 #include <sys/time.h>
+
 #include <math.h>
 
 #include "matrix.h"
@@ -40,41 +42,25 @@ int main()
 {
 	int n;
 	Data data;
-
-	/*int info = 0;*/
-
+	srand(time(NULL));
 	struct timeval start, end;
 	double elapsed;
 
-	for (int k = 2; k < 13; k++) {
+	for (int k = 2; k < 12; k++) {
 
 		n = pow(2, k);
-
+		printf("%d, ",n);
+		fflush(stdout);
 		data = genMat(n);
-
+		#ifdef DEBUG
+		printMat(data.mat);
+		#endif
 		gettimeofday(&start, NULL);
 		Eliminate(data.mat, &data.inverse);
 		gettimeofday(&end, NULL);
 		elapsed = (end.tv_sec - start.tv_sec) * 1000.0;
 		elapsed += (end.tv_usec - start.tv_usec) / 1000.0;
-		printf("%d, Házi: %lf \n", n, elapsed);
-
-		/*double *svals=(double *) malloc(n*sizeof(double));
-		   double *u=(double *) malloc(n*n*sizeof(double));
-		   double *vt=(double *) malloc(n*n*sizeof(double));
-		   double *superb = (double*)malloc( sizeof(double) * (n-1 ));
-
-		   gettimeofday(&start, NULL);
-		   info=LAPACKE_dgesvd(LAPACK_ROW_MAJOR,'A','A',n,n,data.copy,n,svals,u,n,vt,n,superb);
-		   //dgesvd("All","All", n,n, data.copy, n, svals, u, n, vt, n, superb, 6*n,info);
-		   gettimeofday(&end, NULL);
-		   elapsed = (end.tv_sec - start.tv_sec) * 1000.0;
-		   elapsed += (end.tv_usec - start.tv_usec) / 1000.0;
-		   printf("Lapack: %lf\n",elapsed);
-		   free(superb);
-		   free(vt);
-		   free(u);
-		   free(svals); */
+		printf("%lf \n", elapsed);
 
 		matDel(&data.mat);
 
