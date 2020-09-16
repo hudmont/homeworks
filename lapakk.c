@@ -6,6 +6,8 @@
 
 #include "matrix.h"
 #include "elim.h"
+
+#include <omp.h>
 //#include "lapacke.h"
 
 /*extern void dgesvd(char *jobu , char *jobvt, int m, int n, double *a, int lda,
@@ -45,7 +47,7 @@ int main()
 	srand(time(NULL));
 	struct timeval start, end;
 	double elapsed;
-
+        omp_set_num_threads(1);
 	for (int k = 2; k < 12; k++) {
 
 		n = pow(2, k);
