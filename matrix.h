@@ -12,22 +12,22 @@ typedef struct matrix {
 	Array arr;
 } Matrix;
 
-void matDel(Matrix * mat);
+//void matDel(Matrix * mat);
 
-double *get(Matrix mat, int row, int col);
+//double *get(Matrix mat, int row, int col);
 
-void checkMat(Matrix mat);
+//void checkMat(Matrix mat);
 
-Matrix readMatFromFile(const char *filename);
+//Matrix readMatFromFile(const char *filename);
 
-Matrix genInValidMatrix(void);
+//Matrix genInValidMatrix(void);
 
-int isValidMat(Matrix mat);
+//int isValidMat(Matrix mat);
 
-Matrix matMul(Matrix left, Matrix right);
+double *matMul(int k, int l, double left[k][l], int m, double right[l][m]);
 
-void printMat(Matrix mat);
+void printMat(int k, int l, double mat[k][l]);
 
-Matrix transpose(Matrix mat);
+double *transpose(int k, int l, double mat[k][l]);
 
 #endif

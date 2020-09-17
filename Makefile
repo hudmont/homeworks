@@ -1,31 +1,31 @@
-CC     = gcc
-# csakis gcc a beágyazott függvények miatt
-OPTFLAGS = -march=native -O3 -pipe -march=znver1 -mprefer-vector-width=256  -flto
+CC     = gcc # egyelőre csakis gcc a beágyazott helper függvények miatt
+OPTFLAGS =-march=native -O3 -pipe -march=znver1 -mprefer-vector-width=256  -flto
 # -fdevirtualize-at-ltrans -fno-plt -fno-common -fipa-pta -fno-semantic-interposition -fgraphite-identity -floop-nest-optimize
 DBGFLAGS = -Wall -Wextra
+#-DDEBUG -g
 
 DEFINES=-DPRECISE -DVLEN=4 -DTHREADED
-#-DNOCOPY
-CFLAGS = --std=gnu17 $(DBGFLAGS) $(OPTFLAGS) $(DEFINES) -lm -fopenmp -flto=6
-LDFLAGS = $(CFLAGS)
-#-lreflapacke -lreflapack -lrefblas 
-# -lblas -llapack
+CFLAGS = --std=gnu17 $(DBGFLAGS) $(OPTFLAGS) $(DEFINES) -fopenmp
+LDFLAGS = -lm -flto=6
+#-lreflapacke -lreflapack -lrefblas -lblas -llapack
 
-src = elim.c matrix.c array.c
-obj = $(src:.c=.o)
-hdr = $(src:.c=.h)
-targets = rk4 intel illeszt matmul lapakk
+SRCS = elim.c matrix.c array.c
+OBJS = $(SRCS:.c=.o)
+HDRS = $(SRCS:.c=.h)
+TARGETS = rk4 intel illeszt matmul lapakk
+
+all: $(TARGETS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) -o $@ -c $< $(LDFLAGS)
 
-$(targets): $(obj)
-	$(CC) $(CFLAGS) -o $@ $(obj) $@.c $(LDFLAGS)
+$(TARGETS): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $@.c $(LDFLAGS)
 
 .PHONY: clean
 clean:
-	rm -f $(obj) $(targets)
+	rm -f $(OBJS) $(TARGETS)
 
 .PHONY: lint
 lint:
-	clang-tidy $(src) $(hdr) -- $(CFLAGS)
+	clang-tidy $(SRCS) $(HDRS) -- $(CFLAGS)
