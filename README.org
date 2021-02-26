@@ -1,0 +1,6 @@
+* homeworks
+
++ fiznum2/Intel.c -> experiment to apply the rk4 to guess cpu frequencies based on previous models.
++ fiznum2/lapakk.c -> program to benchmark lapack svd against home-grown gauss elimination
++ modfizlab/labor1.scm -> script to generate latex tables from measured values for a laboratory
++ kutinf -> a program to simulate electrostatic potential and fields
