@@ -1,5 +1,133 @@
+#+OPTIONS: tex:t
+
+\begin{equation}
+ $0^\circ$
+\end{equation}
 * Kvantumradír
+
 ** Bevezetés
+
+Ugyan Richard Feynman szerint a kétréses interferenciakísérlet magyarázata a kvantummechanika egyetlen rejtélye, azonban a jelenség bizonyos esetei klasszikus keretek közt is értelmezhetők.
+
+Mi a mérésünkben egy efféle elrendezésben vizsgáltuk a kvantumradírt.
+A kvantumradírnak nevezzük azt a jelenséget ami akkor lép fel, ha egy interferométerben az ún. "útvonaljelölés" ( a mi esetünkben a megkülönböztető tulajdonság a fotonok polarizációja ) eltünteti az interferenciát, de még a mielőtt a detektorba érnének a részecskesugár, megszüntetjük ("kiradírozzuk") az útvonaljelölést -- azaz kitöröljük a korábban szerzett útvonaljelölést, és az interferenciakép helyreáll.
+
+** Elméleti összefoglalás
+*** Láthatósági paraméter
+**** Első eset
+Vegyünk két, lineárisan polarizált állapotot 2Φ szögeltéréssel és α fáziskülönbséggel. Ezek Jones-vektorai a következők:
+
+\begin{align}
+\mathbf{E}_1= \left(
+\begin{array}{c}
+ \cos\phi \\ 
+ \sin\phi
+\end{array}
+\right)
+&\hspace{24pt}
+\mathbf{E}_2= 
+\left(
+\begin{array}{c}
+ \cos\phi \\ 
+ -\sin\phi
+\end{array}
+\right)
+ \right)e^{i\alpha}
+\end{align}
+
+A szuperpozíció elve szerint összeadhatjuk a fentieket, hogy az eredő térerősséget megkapjuk:
+
+\begin{equation}
+\mathbf{E} =\left(
+\begin{array}{c}
+ \cos\phi(1+e^{i\alpha}) \\ 
+ \sin\phi (1-e^{i\alpha})
+\end{array}
+ \right)
+\end{equation}
+
+A térerősségnégyzet abszolút értékével arányos, ezért felírhatjuk így is:
+
+\begin{equation}
+I\sim \mathbf{E}\mathbf{E}^{*}=\left(
+\begin{array}{c c}
+ \cos\phi(1+e^{-i\alpha}); &
+ \sin\phi (1-e^{-i\alpha})
+\end{array}
+ \right)\cdot 
+\left(
+\begin{array}{c}
+ \cos\phi(1+e^{i\alpha}) \\ 
+ \sin\phi (1-e^{i\alpha})
+\end{array}
+ \right)
+\end{equation}
+
+A beszorzás után a következő marad:
+\begin{equation}
+I\sim 1+\cos(2\phi)\cos\alpha,
+\end{equation}
+
+Ha ezt behelyzettesítjük a kontraszt paraméter definíciójába, akkor a következőt kapjuk:
+
+\begin{equation}
+V_1=\frac{I_\text{max}-I_\text{min}}{I_\text{max}+I_\text{min}}=\cos(2\phi),
+\end{equation}
+
+Ez a fenti eredmény lesz a kontraszt paraméter képlete az első elrendezésünkben.
+
+**** Második eset
+A két polarizátort ±45°-os állásba tesszük és a harmadik polárszűrőt (a kvantumradírt) φ szögű irányba állítjuk. A ±45°-os állású Jones-vektorok:
+
+\begin{align}
+\mathbf{E}_1 =\frac{1}{\sqrt{2}}\left(
+\begin{array}{c}
+ 1 \\ 
+ 1
+\end{array}
+ \right)&\hspace{24pt}
+\mathbf{E}_2 =\frac{1}{\sqrt{2}}\left(
+\begin{array}{c}
+ 1 \\ 
+ -1
+\end{array}
+ \right)e^{i\alpha}.
+\end{align}
+
+A polarizátor Jones-mátrixa pedig legyen egy általános polarizátor mátrixa:
+\begin{equation}
+\mathbf{P}=\left(\begin{array}{c c}
+\cos^2\phi& \sin\phi\cos\phi \\
+\sin\phi\cos\phi & \sin^2\phi
+\end{array}
+\right).
+\end{equation}
+
+Az eredő térerősséget ismét szuperpozícióból kapjuk:
+\begin{equation}
+\mathbf{E}=\mathbf{P}(\mathbf{E}_1+\mathbf{E}_2)=\frac{1}{\sqrt{2}}(\cos\phi (1+e^{i\alpha})+\sin\phi (1-e^{i\alpha}))
+\cdot
+\left(
+\begin{array}{c}
+ \cos\phi \\ 
+ \sin\phi
+\end{array}
+ \right). 
+\end{equation}
+
+Ennek kiszámítva az abszolút értékének négyzetét, az intenzitásra ebben az esetben is
+\begin{equation}
+I\sim 1+\cos(2\phi)\cos\alpha
+\end{equation}
+adódik, tehát a kontraszt most is
+\begin{equation}
+V_2=\cos (2\phi).
+\end{equation}
+
+*** Mérési elrendezés
+
+*** Visibility paraméter ( láthatósági paraméter )
+
 ** Mérési feladatok
 *** 4. mérési feladat
 **** Mért adatok
