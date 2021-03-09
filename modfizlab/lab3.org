@@ -1,0 +1,28 @@
+
+#+Caption: Hydrogen
+| multiplicity | E[kJ/mol] | dist[Å] |
+|            1 | -3088.294 |   0.743 |
+|            3 | -2628.693 |   5.801 |
+
+
+
+Nitrogen
+| multiplicity |   E[kJ/mol] | dist[Å] |
+|            1 | -287747.996 |   1.106 |
+|            3 | -287046.505 |   1.284 |
+
+Oxygen
+| multiplicity |   E[kJ/mol] | dist[Å] |
+|            1 | -394764.823 |   1.216 |
+|            3 | -394929.329 |   1.214 |
+
+Fluorine
+| multiplicity |   E[kJ/mol] | dist[Å] |
+|            1 | -524133.219 |   1.404 |
+|            3 | -523980.926 |   1.719 |
+
+
+
+Hydrogen, electron stuff
+| wat | q |
+|     |   |

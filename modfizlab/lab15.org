@@ -47,7 +47,7 @@ A szuperpozíció elve szerint összeadhatjuk a fentieket, hogy az eredő térer
  \right)
 \end{equation}
 
-A térerősségnégyzet abszolút értékével arányos, ezért felírhatjuk így is:
+Az intenzitás a térerősségnégyzet abszolút értékével arányos, ezért felírhatjuk így is:
 
 \begin{equation}
 I\sim \mathbf{E}\mathbf{E}^{*}=\left(
@@ -152,7 +152,7 @@ V_2=\cos (2\phi).
 |   85 |   95 | 0.17365 |
 | 90.5 | 90.5 |   0.000 |
 
-Megj. D1-re a szoftver ***-ot jelez, ha mindkét polarizátor 90 fokra van állítva
+Megj.: D1-re a szoftver ***-ot jelez, ha mindkét polarizátor 90 fokra van állítva
 
 *** 6. mérési feladat
 
