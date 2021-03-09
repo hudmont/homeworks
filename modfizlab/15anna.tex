@@ -1,0 +1,172 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[magyar]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage[noadjust]{cite}
+\usepackage[all]{hypcap}
+\usepackage[hypcap]{caption}
+\usepackage{braket}
+\usepackage{url}
+\usepackage{float}
+\usepackage{listings}
+\setlength{\textwidth}{17cm}
+\setlength{\textheight}{24cm}
+\setlength{\topmargin}{-2cm}
+\setlength{\footskip}{1cm}
+\setlength{\evensidemargin}{-0.3cm}
+\setlength{\oddsidemargin}{-0.3cm}
+\setlength{\parindent}{0cm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    linktoc=all,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdfstartview=FitB,
+}
+ 
+\urlstyle{same}
+
+\title{\Huge{\textbf{15. Kvantumradír}}}
+\author{\textsl{Barna Zsombor, Rédl Anna}}
+\date{Mérés időpontja: 2021.02.23.\\
+	\textsl{Keddi csoport}\\}
+\begin{document}
+
+\begin{titlepage}
+\pagenumbering{gobble}
+\maketitle
+\end{titlepage}
+
+\section{Bevezetés}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+
+\section{A mérési összeállítás}
+
+
+\section{Rövid elméleti összefoglaló}
+
+
+\section{Számolási feladatok}
+
+\subsection{A lézernyalábok által bezárt szög számítása Mach-Zender elrendezésben}
+
+Ha a négy tükör nem tökéletesen párhuzamos, a lencsén áthaladva a nyalábok a fókuszsíkban nem egyetlen pontban metszik egymást, hanem kettő pontban ( $S'$ és $S''$). 
+
+Ha feltételezzük, hogy a nyalábok $\alpha$ szöge nagyon kicsi, akkor az $S'$ és $S''$ pontok, valamint a lencse fősíkjának az $S'S''$ szakasz felezőjével szemközti pontja által definiált egyenlő szárú háromszög szárai $\approx f$, ahol $f$ a lencse fókusztávolsága. 
+
+Ebből a cosinus tétel alapján az $S'S''$ szakasz $d$ hosszúsága az alábbiak szerint becsülhető:
+
+\begin{equation}
+d^2\approx 2f^2(1-\cos\alpha)
+\end{equation}
+
+$\cos{\alpha}$ -t másodrendig sorbafejtve:
+
+\begin{equation*}
+    \cos{\alpha}\approx 1-\frac{\alpha^2}{2}+\mathcal{O}(\alpha^4)
+\end{equation*}
+
+Ezt az előző kifejezésbe behelyettesítve:
+
+\begin{equation*}
+    d=f\alpha
+\end{equation*}
+
+A $d$ szakasz hosszára kaphatunk egy másik egyenletet is az alaphán, hogy az $S'$ és $S''$ pontokból gömbhullámok indulnak ki. A $\theta_m$ irányok, az $m$ rendek, a $d$ réstávolság és a $\lambda$ hullámhossz között az alábbi összefüggés írható fel:
+
+\begin{equation}
+d\sin\theta_m=m\lambda
+\end{equation}
+
+Ha $\theta_m$ kicsi és a lencse és az ernyő $L$ távolságára igaz, hogy $L\gg f$, akkor élhetünk az alábbi közelítéssekkel a $\theta_m$ irányra és az adott interferenciacsíknak a középső csíktól való $l_m$ távolságára vonatkozóan:
+
+\begin{equation*}
+\theta \approx \sin\theta\approx\tan\theta\approx\frac{l_m}{L}
+\end{equation*}
+
+Ez alapján az egyenlet a következő formát ölti:
+
+\begin{equation*}
+d \approx \frac{m\lambda L}{l_m}     
+\end{equation*}
+
+Ebbe behelyettesítve a $d$-re kapott előző kifejezést, a nyalábok párhuzamosságának $\alpha$ hibájára a következő kifejezés adódik: 
+
+\begin{equation}\label{eq: alpha}
+\alpha\approx  \frac{m\lambda L}{fl_m}
+\end{equation}
+
+\section{Mérési adatok}
+
+\subsection{Jelölt és jelöletlen útvonal}
+
+\begin{figure}[h]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{1.png}
+  \captionof{figure}{Jelöletlen útvonal}
+  \label{fig:test1}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{2.png}
+  \captionof{figure}{Jelölt útvonal}
+  \label{fig:test2}
+\end{minipage}
+\end{figure}
+
+\subsection{A kvantumradírozás szemléltetése}
+\begin{figure}[h]
+\centering
+\includegraphics[width=8cm]{3.png}
+\captionof{figure}{Bekapcsolt radírozó polárszűrő}
+\end{figure}
+
+\pagebreak
+\subsection{Egyik ernyőn nincs jel}
+
+\begin{figure}[h]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{4.png}
+  \captionof{figure}{Másik ernyőn nincs interferencia}
+  \label{fig:test3}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{5.png}
+  \captionof{figure}{Másik ernyőn van interferencia}
+  \label{fig:test4}
+\end{minipage}
+\end{figure}
+
+
+\section{A mérés kiértékelése}
+
+
+\begin{thebibliography}{1}
+
+\bibitem{leiras}
+Koltai János: Kvantumradír
+(\href{http://wigner.elte.hu/koltai/labor/parts/modern15.pdf}{Mérési leírás})
+
+
+\end{thebibliography}
+
+\end{document}

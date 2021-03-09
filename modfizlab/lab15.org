@@ -1,39 +1,97 @@
 #+OPTIONS: tex:t
+#+AUTHOR: Rédl Anna, Barna Zsombor
+#+DATE: Mérés időpontja: 2021. 02. 23.
+#+TITLE: 15. Kvantumradír
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [12pt,a4paper]
 
-* Kvantumradír
+\begin{titlepage}
+\pagenumbering{gobble}
+\maketitle
+\end{titlepage}
 
-** Bevezetés
-
+* Bevezetés
+\pagenumbering{arabic}
+\setcounter{page}{1}
 Ugyan Richard Feynman szerint a kétréses interferenciakísérlet magyarázata a kvantummechanika egyetlen rejtélye, azonban a jelenség bizonyos esetei klasszikus keretek közt is értelmezhetők.
 
 Mi a mérésünkben egy efféle elrendezésben vizsgáltuk a "kvantumradírt". A kvantumradírnak nevezzük azt a jelenséget ami akkor lép fel, ha egy interferométerben az ún. "útvonaljelölés" ( a mi esetünkben a megkülönböztető tulajdonság a fotonok polarizációja ) eltünteti az interferenciát, de még a mielőtt a detektorba érnének a részecskesugár, megszüntetjük ("kiradírozzuk") az útvonaljelölést -- azaz kitöröljük a korábban szerzett útvonaljelölést, és az interferenciakép helyreáll.
 
-** Mérési összeállítás
+* Mérési összeállítás
 
 Egy [[https://en.wikipedia.org/wiki/Mach%E2%80%93Zehnder_interferometer][Mach-Zehnder-interferométerrel]] dolgozunk. Ennek minkét nyalábútvonalába egy-egy polárszűrőt tettünk, és ezekkel a fénynyalábokat különbözőképp polarizáltuk. A megvalósításunk virtuális volt, amelyet a laborvezető bocsájtott rendekezésünkre. A fényképezést egy screenshot készítésével tudtuk helyettesíteni.
 
-** Elméleti összefoglalás
+* Számolási feladatok
+** A lézernyalábok által bezárt szög számítása Mach-Zender elrendezésben
+Ha a négy tükör nem tökéletesen párhuzamos, a lencsén áthaladva a nyalábok a fókuszsíkban nem egyetlen pontban metszik egymást, hanem kettő pontban ( $S'$ és $S''$). 
 
-*** Láthatósági paraméter
-**** Első eset
-Vegyünk két, lineárisan polarizált állapotot 2Φ szögeltéréssel és α fáziskülönbséggel. Ezek Jones-vektorai a következők:
+Ha feltételezzük, hogy a nyalábok $\alpha$ szöge nagyon kicsi, akkor az $S'$ és $S''$ pontok, valamint a lencse fősíkjának az $S'S''$ szakasz felezőjével szemközti pontja által definiált egyenlő szárú háromszög szárai $\approx f$, ahol $f$ a lencse fókusztávolsága. 
+
+Ebből a koszinusztétel alapján az $S'S''$ szakasz $d$ hosszúsága az alábbiak szerint becsülhető:
+
+
+\begin{equation}
+d^2\approx 2f^2(1-\cos\alpha)
+\end{equation}
+
+$\cos{\alpha}$ -t másodrendig sorbafejtve:
+
+\begin{equation*}
+    \cos{\alpha}\approx 1-\frac{\alpha^2}{2}+\mathcal{O}(\alpha^4)
+\end{equation*}
+
+Ezt az előző kifejezésbe behelyettesítve:
+
+\begin{equation*}
+    d=f\alpha
+\end{equation*}
+
+A $d$ szakasz hosszára kaphatunk egy másik egyenletet is az alaphán, hogy az $S'$ és $S''$ pontokból gömbhullámok indulnak ki. A $\theta_m$ irányok, az $m$ rendek, a $d$ réstávolság és a $\lambda$ hullámhossz között az alábbi összefüggés írható fel:
+
+\begin{equation}
+d\sin\theta_m=m\lambda
+\end{equation}
+
+Ha $\theta_m$ kicsi és a lencse és az ernyő $L$ távolságára igaz, hogy $L\gg f$, akkor élhetünk az alábbi közelítéssekkel a $\theta_m$ irányra és az adott interferenciacsíknak a középső csíktól való $l_m$ távolságára vonatkozóan:
+
+\begin{equation*}
+\theta \approx \sin\theta\approx\tan\theta\approx\frac{l_m}{L}
+\end{equation*}
+
+Ez alapján az egyenlet a következő formát ölti:
+
+\begin{equation*}
+d \approx \frac{m\lambda L}{l_m}     
+\end{equation*}
+
+Ebbe behelyettesítve a $d$-re kapott előző kifejezést, a nyalábok párhuzamosságának $\alpha$ hibájára a következő kifejezés adódik: 
+
+\begin{equation}\label{eq: alpha}
+\alpha\approx  \frac{m\lambda L}{fl_m}
+\end{equation}
+
+** Láthatósági paraméter
+*** Első eset
+Vegyünk két, lineárisan polarizált állapotot $2\cdot\phi$ szögeltéréssel és $\alpha$ fáziskülönbséggel. Ezek Jones-vektorai a következők:
 
 \begin{align}
-\mathbf{E}_1= \left(
-\begin{array}{c}
- \cos\phi \\ 
- \sin\phi
-\end{array}
-\right)
-&\hspace{24pt}
-\mathbf{E}_2= 
-\left(
-\begin{array}{c}
- \cos\phi \\ 
- -\sin\phi
-\end{array}
-\right)
- \right)e^{i\alpha}
+  \mathbf{E}_1= 
+  \left(
+    \begin{array}{c}
+       \cos\phi \\ 
+       \sin\phi
+    \end{array}
+  \right)
+  &\hspace{24pt}
+  \mathbf{E}_2= 
+  \left(
+    \begin{array}{c}
+      \cos\phi \\ 
+      -\sin\phi
+    \end{array}
+  \right)
+  \cdot
+ e^{i\alpha}
 \end{align}
 
 A szuperpozíció elve szerint összeadhatjuk a fentieket, hogy az eredő térerősséget megkapjuk:
@@ -42,7 +100,7 @@ A szuperpozíció elve szerint összeadhatjuk a fentieket, hogy az eredő térer
 \mathbf{E} =\left(
 \begin{array}{c}
  \cos\phi(1+e^{i\alpha}) \\ 
- \sin\phi (1-e^{i\alpha})
+ \sin\phi(1-e^{i\alpha})
 \end{array}
  \right)
 \end{equation}
@@ -66,7 +124,7 @@ I\sim \mathbf{E}\mathbf{E}^{*}=\left(
 
 A beszorzás után a következő marad:
 \begin{equation}
-I\sim 1+\cos(2\phi)\cos\alpha,
+I\sim 1+\cos(2\phi)\cos\alpha
 \end{equation}
 
 Ha ezt behelyzettesítjük a kontraszt paraméter definíciójába, akkor a következőt kapjuk:
@@ -77,8 +135,8 @@ V_1=\frac{I_\text{max}-I_\text{min}}{I_\text{max}+I_\text{min}}=\cos(2\phi),
 
 Ez a fenti eredmény lesz a kontraszt paraméter képlete az első elrendezésünkben.
 
-**** Második eset
-A két polarizátort ±45°-os állásba tesszük és a harmadik polárszűrőt (a kvantumradírt) φ szögű irányba állítjuk. A ±45°-os állású Jones-vektorok:
+*** Második eset
+A két polarizátort ±45°-os állásba tesszük és a harmadik polárszűrőt (a kvantumradírt) $\phi$ szögű irányba állítjuk. A ±45°-os állású Jones-vektorok:
 
 \begin{align}
 \mathbf{E}_1 =\frac{1}{\sqrt{2}}\left(
@@ -125,46 +183,52 @@ adódik, tehát a kontraszt most is
 V_2=\cos (2\phi).
 \end{equation}
 
-*** Mérési elrendezés
+* Mérési elrendezés
 
-*** Visibility paraméter ( láthatósági paraméter )
+* Visibility paraméter ( láthatósági paraméter )
 
-** Mérési feladatok
-*** 4. mérési feladat
-**** Mért adatok
-|  α |   β |      D1 | V1  |
-|----+-----+---------+-----|
-| 75 | 120 | 0.81650 | TBD |
+* Mérési feladatok
+** 4. mérési feladat
+*** Mért adatok
+|----------+---------+---------+-------|
+| $\alpha$ | $\beta$ |   $D_1$ | $V_1$ |
+|----------+---------+---------+-------|
+|       75 |     120 | 0.81650 | TBD   |
+|----------+---------+---------+-------|
 
+** 5. mérési feladat
 
-*** 5. mérési feladat
+|----------+---------+---------|
+| $\alpha$ | $\beta$ |   $D_1$ |
+|----------+---------+---------|
+|       45 |     135 |     1.0 |
+|       50 |     130 | 0.98481 |
+|       55 |     125 | 0.93969 |
+|       60 |     120 | 0.86603 |
+|       65 |     115 | 0.76604 |
+|       70 |     110 | 0.64279 |
+|       75 |     105 | 0.50000 |
+|       80 |     100 | 0.34202 |
+|       85 |      95 | 0.17365 |
+|     90.5 |    90.5 |   0.000 |
+|----------+---------+---------|
 
-|    α |    β |      D1 |
-|------+------+---------|
-|   45 |  135 |     1.0 |
-|   50 |  130 | 0.98481 |
-|   55 |  125 | 0.93969 |
-|   60 |  120 | 0.86603 |
-|   65 |  115 | 0.76604 |
-|   70 |  110 | 0.64279 |
-|   75 |  105 | 0.50000 |
-|   80 |  100 | 0.34202 |
-|   85 |   95 | 0.17365 |
-| 90.5 | 90.5 |   0.000 |
 
 Megj.: D1-re a szoftver ***-ot jelez, ha mindkét polarizátor 90 fokra van állítva
 
-*** 6. mérési feladat
-
-|   γ |      D1 |
-|  45 | 1.00000 |
-|  54 | 0.95106 |
-|  63 | 0.80902 |
-|  72 | 0.58779 |
-|  81 | 0.30902 |
-|  90 | 0.00000 |
-|  99 | 0.30902 |
-| 108 | 0.58779 |
-| 117 | 0.80902 |
-| 126 | 0.95106 |
-| 135 | 1.00000 |
+** 6. mérési feladat
+|----------+---------|
+| $\gamma$ |   $D_1$ |
+|----------+---------|
+|       45 | 1.00000 |
+|       54 | 0.95106 |
+|       63 | 0.80902 |
+|       72 | 0.58779 |
+|       81 | 0.30902 |
+|       90 | 0.00000 |
+|       99 | 0.30902 |
+|      108 | 0.58779 |
+|      117 | 0.80902 |
+|      126 | 0.95106 |
+|      135 | 1.00000 |
+|----------+---------|
